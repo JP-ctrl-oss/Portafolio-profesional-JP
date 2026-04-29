@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Upload, File, X, Download, Eye, FileText } from 'lucide-react';
+import { Upload, X, Download, Eye, FileText } from 'lucide-react';
 
 interface PortfolioFile {
   id: string;
