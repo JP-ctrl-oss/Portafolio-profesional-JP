@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Wind, Atom, Bot, Cpu, Plane, Check, Linkedin, Mail, ArrowUpRight, X } from 'lucide-react';
+import { PortfolioUpload } from './components/PortfolioUpload';
 import './App.css';
 
 interface Project {
@@ -140,7 +141,7 @@ function App() {
               </span>
             </div>
             <nav className="hidden sm:flex items-center gap-8">
-              {['About', 'ZYCAD', 'Projects', 'Skills', 'Contact'].map((item) => (
+              {['About', 'ZYCAD', 'Projects', 'Portfolio', 'Skills', 'Contact'].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
@@ -358,6 +359,33 @@ function App() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Thin divider line */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="h-px bg-apple-gray-100" />
+      </div>
+
+      {/* Portfolio Upload Section */}
+      <section id="portfolio" className="py-20 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="mb-12">
+            <span className="text-xs font-medium text-apple-gray-400 uppercase tracking-wider">
+              File Management
+            </span>
+            <h2 className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
+              Upload Documents & Files
+            </h2>
+            <p className="mt-4 text-apple-gray-400 max-w-2xl">
+              Manage your portfolio files including PDFs, design documents, technical drawings, 
+              and reference materials. Organize and share your work with ease.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-2xl border border-apple-gray-100 p-8 lg:p-12">
+            <PortfolioUpload />
           </div>
         </div>
       </section>
