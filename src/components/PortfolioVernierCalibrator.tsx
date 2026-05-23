@@ -11,7 +11,6 @@ export function PortfolioVernierCalibrator({ onClose }: VernierCalibratorProps) 
   
   // Precisión: 1/128 de pulgada = 0.0078125 pulgadas = 0.198mm
   const VERNIER_PRECISION = 1 / 128; // en pulgadas
-  const VERNIER_PRECISION_MM = VERNIER_PRECISION * 25.4; // convertir a mm
   
   // Cada división del Vernier es 1/128 pulgadas
   const MAX_VERNIER_DIVISIONS = 128;
