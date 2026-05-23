@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Wind, Atom, Bot, Cpu, Plane, Check, Linkedin, Mail, ArrowUpRight, X } from 'lucide-react';
+import { Wind, Atom, Bot, Cpu, Plane, Check, Linkedin, Mail, ArrowUpRight, X, Menu } from 'lucide-react';
 import { PortfolioUpload } from './components/PortfolioUpload';
+import { PortfolioVernierCalibrator } from './components/PortfolioVernierCalibrator';
 import './App.css';
 
 interface Project {
@@ -15,6 +16,8 @@ interface Project {
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showVernierCalibrator, setShowVernierCalibrator] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -140,20 +143,65 @@ function App() {
                 JUAN PABLO PEREIRA
               </span>
             </div>
-            <nav className="hidden sm:flex items-center gap-8">
-              {['About', 'ZYCAD', 'Projects', 'Portfolio', 'Skills', 'Contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className="text-sm text-apple-gray-500 hover:text-foreground transition-colors duration-200"
-                >
-                  {item}
-                </button>
-              ))}
-            </nav>
+            <div className="flex items-center gap-6">
+              <nav className="hidden sm:flex items-center gap-8">
+                {['About', 'ZYCAD', 'Projects', 'Portfolio', 'Skills', 'Contact'].map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => scrollToSection(item.toLowerCase())}
+                    className="text-sm text-apple-gray-500 hover:text-foreground transition-colors duration-200"
+                  >
+                    {item}
+                  </button>
+                ))}
+              </nav>
+              
+              {/* Hamburger Menu Button */}
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="sm:hidden p-2 hover:bg-gray-200 rounded-lg transition-colors"
+                aria-label="Toggle menu"
+              >
+                {menuOpen ? (
+                  <X size={24} className="text-foreground" />
+                ) : (
+                  <Menu size={24} className="text-foreground" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </header>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-apple-gray-100 sm:hidden">
+          <nav className="max-w-7xl mx-auto px-6 py-4 space-y-3">
+            {['About', 'ZYCAD', 'Projects', 'Portfolio', 'Skills', 'Contact'].map((item) => (
+              <button
+                key={item}
+                onClick={() => {
+                  scrollToSection(item.toLowerCase());
+                  setMenuOpen(false);
+                }}
+                className="block w-full text-left px-4 py-2 text-sm text-apple-gray-500 hover:text-foreground hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                {item}
+              </button>
+            ))}
+            <div className="h-px bg-gray-200 my-2"></div>
+            <button
+              onClick={() => {
+                setShowVernierCalibrator(true);
+                setMenuOpen(false);
+              }}
+              className="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium"
+            >
+              📏 Calibrador Vernier
+            </button>
+          </nav>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 lg:pt-48 lg:pb-32">
@@ -530,6 +578,11 @@ function App() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Vernier Calibrator Modal */}
+      {showVernierCalibrator && (
+        <PortfolioVernierCalibrator onClose={() => setShowVernierCalibrator(false)} />
       )}
     </div>
   );
