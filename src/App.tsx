@@ -19,13 +19,25 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showVernierCalibrator, setShowVernierCalibrator] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
+  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 800);
     };
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Solo cerrar si el click es fuera del dropdown y fuera del botón Tools
+      if (!target.closest('.tools-dropdown') && !target.closest('button')?.textContent?.includes('Tools')) {
+        setToolsDropdownOpen(false);
+      }
+    };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
   useEffect(() => {
@@ -165,6 +177,49 @@ function App() {
                     {item}
                   </button>
                 ))}
+                
+                {/* Tools Dropdown */}
+                <div className="relative tools-dropdown">
+                  <button
+                    onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
+                    className="text-sm text-apple-gray-500 hover:text-foreground transition-colors duration-200 flex items-center gap-1"
+                  >
+                    Tools
+                    <svg 
+                      className={`w-4 h-4 transition-transform duration-200 ${toolsDropdownOpen ? 'rotate-180' : ''}`}
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </button>
+                  
+                  {/* Dropdown Menu */}
+                  {toolsDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-apple-gray-100 py-2 z-50">
+                      <button
+                        onClick={() => {
+                          setShowVernierCalibrator(true);
+                          setToolsDropdownOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-3 text-sm text-foreground hover:bg-blue-50 flex items-center gap-3 transition-colors"
+                      >
+                        <span className="text-lg">📏</span>
+                        <div>
+                          <div className="font-medium">Calibrador Vernier</div>
+                          <div className="text-xs text-apple-gray-400">Pie de rey digital - Precisión 1/128"</div>
+                        </div>
+                      </button>
+                      
+                      {/* More tools can be added here */}
+                      <div className="border-t border-apple-gray-100 my-2"></div>
+                      <div className="px-4 py-2 text-xs text-apple-gray-400">
+                        Más herramientas próximamente...
+                      </div>
+                    </div>
+                  )}
+                </div>
               </nav>
               )}
               
