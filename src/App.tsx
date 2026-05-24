@@ -144,7 +144,7 @@ function App() {
               </span>
             </div>
             <div className="flex items-center gap-6">
-              <nav className="hidden sm:flex items-center gap-8">
+              <nav className="hidden lg:flex items-center gap-8">
                 {['About', 'ZYCAD', 'Projects', 'Portfolio', 'Skills', 'Contact'].map((item) => (
                   <button
                     key={item}
@@ -159,7 +159,7 @@ function App() {
               {/* Hamburger Menu Button */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="sm:hidden p-2 hover:bg-gray-200 rounded-lg transition-colors"
+                className="flex lg:hidden p-2 hover:bg-gray-200 rounded-lg transition-colors"
                 aria-label="Toggle menu"
               >
                 {menuOpen ? (
@@ -175,7 +175,7 @@ function App() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-apple-gray-100 sm:hidden">
+        <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-apple-gray-100 lg:hidden">
           <nav className="max-w-7xl mx-auto px-6 py-4 space-y-3">
             {['About', 'ZYCAD', 'Projects', 'Portfolio', 'Skills', 'Contact'].map((item) => (
               <button
