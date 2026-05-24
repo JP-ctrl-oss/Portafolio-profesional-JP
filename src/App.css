@@ -5,6 +5,25 @@ button, a {
   transition: all 0.2s ease;
 }
 
+/* Responsive navigation */
+@media (min-width: 1024px) {
+  #nav-desktop {
+    display: flex !important;
+  }
+  #menu-btn {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  #nav-desktop {
+    display: none !important;
+  }
+  #menu-btn {
+    display: flex !important;
+  }
+}
+
 /* Card hover enhancement */
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;

@@ -18,6 +18,15 @@ function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showVernierCalibrator, setShowVernierCalibrator] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 800);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -144,7 +153,9 @@ function App() {
               </span>
             </div>
             <div className="flex items-center gap-6">
-              <nav className="hidden lg:flex items-center gap-8">
+              {isMobile ? null : (
+              <nav 
+                className="flex items-center gap-8">
                 {['About', 'ZYCAD', 'Projects', 'Portfolio', 'Skills', 'Contact'].map((item) => (
                   <button
                     key={item}
@@ -155,11 +166,13 @@ function App() {
                   </button>
                 ))}
               </nav>
+              )}
               
               {/* Hamburger Menu Button */}
+              {isMobile && (
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="flex lg:hidden p-2 hover:bg-gray-200 rounded-lg transition-colors"
+                className="flex p-2 hover:bg-gray-200 rounded-lg transition-colors"
                 aria-label="Toggle menu"
               >
                 {menuOpen ? (
@@ -168,14 +181,15 @@ function App() {
                   <Menu size={24} className="text-foreground" />
                 )}
               </button>
+              )}
             </div>
           </div>
         </div>
       </header>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-apple-gray-100 lg:hidden">
+      {menuOpen && isMobile && (
+        <div className="fixed top-16 left-0 right-0 z-40 bg-white border-b border-apple-gray-100">
           <nav className="max-w-7xl mx-auto px-6 py-4 space-y-3">
             {['About', 'ZYCAD', 'Projects', 'Portfolio', 'Skills', 'Contact'].map((item) => (
               <button
