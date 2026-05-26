@@ -209,6 +209,19 @@ function App() {
                         </div>
                       </a>
                       
+                      <a
+                        href="/tools/earth-magnetic-field.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full text-left px-4 py-3 text-sm text-foreground hover:bg-blue-50 flex items-center gap-3 transition-colors"
+                      >
+                        <span className="text-lg">🌍</span>
+                        <div>
+                          <div className="font-medium">Campo Magnético Terrestre</div>
+                          <div className="text-xs text-apple-gray-400">Visualización de líneas de campo</div>
+                        </div>
+                      </a>
+                      
                       {/* More tools can be added here */}
                       <div className="border-t border-apple-gray-100 my-2"></div>
                       <div className="px-4 py-2 text-xs text-apple-gray-400">
@@ -263,6 +276,14 @@ function App() {
               className="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium"
             >
               📏 Calibrador Vernier
+            </a>
+            <a
+              href="/tools/earth-magnetic-field.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium"
+            >
+              🌍 Campo Magnético Terrestre
             </a>
           </nav>
         </div>
