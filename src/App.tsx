@@ -198,6 +198,8 @@ function App() {
                     <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-apple-gray-100 py-2 z-50">
                       <a
                         href="/tools/vernier-caliper.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="w-full text-left px-4 py-3 text-sm text-foreground hover:bg-blue-50 flex items-center gap-3 transition-colors"
                       >
                         <span className="text-lg">📏</span>
@@ -256,6 +258,8 @@ function App() {
             <div className="h-px bg-gray-200 my-2"></div>
             <a
               href="/tools/vernier-caliper.html"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium"
             >
               📏 Calibrador Vernier
