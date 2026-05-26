@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Vernier Caliper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+        }
+        canvas {
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            background: white;
+        }
+        .controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+            font-size: 14px;
+        }
+        input[type="range"] {
+            width: 150px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .reading {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        .reading-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .reading-label {
+            color: #666;
+            font-size: 14px;
+        }
+        .footer {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simulador de Calibrador Vernier</h1>
+        <canvas id="canvas" width="800" height="300"></canvas>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="mainSlider">Posición Principal (0-25mm):</label>
+                <input type="range" id="mainSlider" min="0" max="25" step="0.1" value="5">
+                <input type="text" id="mainValue" value="5.0" readonly>
+            </div>
+            <div class="control-group">
+                <label for="vernier Slider">Escala Vernier (0-0.9mm):</label>
+                <input type="range" id="vernierSlider" min="0" max="9" step="1" value="0">
+                <input type="text" id="vernierValue" value="0.0" readonly>
+            </div>
+        </div>
+        
+        <div class="reading">
+            <div class="reading-label">Medida Total:</div>
+            <div class="reading-value" id="totalReading">5.00 mm</div>
+        </div>
+        
+        <div class="footer">
+            Hecho por Juan Pablo Pereira Corredor
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const mainSlider = document.getElementById('mainSlider');
+        const vernierSlider = document.getElementById('vernierSlider');
+        const mainValue = document.getElementById('mainValue');
+        const vernierValue = document.getElementById('vernierValue');
+        const totalReading = document.getElementById('totalReading');
+
+        function drawCaliper() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw fixed scale (main scale)
+            const scaleStartX = 50;
+            const scaleStartY = 80;
+            const scaleWidth = 700;
+            const mmScale = 28; // pixels per mm
+            
+            // Background
+            ctx.fillStyle = '#f9f9f9';
+            ctx.fillRect(scaleStartX - 20, scaleStartY - 30, scaleWidth + 40, 100);
+            
+            // Main scale line
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(scaleStartX, scaleStartY);
+            ctx.lineTo(scaleStartX + scaleWidth, scaleStartY);
+            ctx.stroke();
+            
+            // Draw main scale divisions (every mm)
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 25; i++) {
+                const x = scaleStartX + i * mmScale;
+                const height = i % 5 === 0 ? 15 : 10;
+                ctx.beginPath();
+                ctx.moveTo(x, scaleStartY);
+                ctx.lineTo(x, scaleStartY + height);
+                ctx.stroke();
+                
+                if (i % 5 === 0) {
+                    ctx.fillStyle = '#000';
+                    ctx.font = 'bold 12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(i, x, scaleStartY + 25);
+                }
+            }
+            
+            // Draw moving scale (Vernier scale)
+            const mainPosition = parseFloat(mainSlider.value);
+            const vernierPosition = parseFloat(vernierSlider.value) * 0.1;
+            const totalPosition = mainPosition + vernierPosition;
+            
+            const movingScaleX = scaleStartX + totalPosition * mmScale;
+            
+            // Vernier scale background
+            ctx.fillStyle = '#e8f4f8';
+            ctx.fillRect(movingScaleX - 30, scaleStartY + 30, 60, 60);
+            
+            // Draw vernier scale lines (10 divisions in 9mm)
+            ctx.strokeStyle = '#0066cc';
+            ctx.lineWidth = 1.5;
+            for (let i = 0; i <= 10; i++) {
+                const x = movingScaleX - 25 + i * 5;
+                ctx.beginPath();
+                ctx.moveTo(x, scaleStartY + 35);
+                ctx.lineTo(x, scaleStartY + 55);
+                ctx.stroke();
+                
+                ctx.fillStyle = '#0066cc';
+                ctx.font = '10px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(i, x, scaleStartY + 65);
+            }
+            
+            // Draw measurement label
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(`Medida: ${totalPosition.toFixed(2)} mm`, canvas.width / 2, canvas.height - 20);
+            
+            // Draw reference line
+            ctx.strokeStyle = '#ff0000';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(movingScaleX, scaleStartY - 20);
+            ctx.lineTo(movingScaleX, scaleStartY + 100);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function update() {
+            const main = parseFloat(mainSlider.value);
+            const vernier = parseFloat(vernierSlider.value) * 0.1;
+            const total = main + vernier;
+            
+            mainValue.value = main.toFixed(1);
+            vernierValue.value = vernier.toFixed(1);
+            totalReading.textContent = total.toFixed(2) + ' mm';
+            
+            drawCaliper();
+        }
+
+        mainSlider.addEventListener('input', update);
+        vernierSlider.addEventListener('input', update);
+
+        // Initial draw
+        update();
+    </script>
+</body>
+</html>
