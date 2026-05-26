@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Simulador Vernier - JP</title>
+    <title>Calibrador Vernier - Juan Pablo Pereira Corredor</title>
     <style>
       :root {
         color-scheme: light;
@@ -77,6 +77,18 @@
         box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
         position: relative;
       }
+      .iframe-top-cover {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 170px;
+        height: 44px;
+        background: rgba(255,255,255,0.96);
+        border-radius: 9999px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+        pointer-events: none;
+        z-index: 10;
+      }
       .iframe-card iframe {
         width: 100%;
         min-height: 720px;
@@ -132,8 +144,8 @@
         <div class="brand">
           <img src="https://raw.githubusercontent.com/JP-ctrl-oss/Portafolio-profesional-JP/main/public/logo.png" alt="JP Logo" />
           <div>
-            <h1>Simulador Vernier</h1>
-            <p style="margin:0;color:#64748b;font-size:0.9rem;">Carga independiente desde el menú Tools</p>
+            <h1>Calibrador Vernier</h1>
+            <p style="margin:0;color:#64748b;font-size:0.9rem;">Calibrador Vernier hecho por Juan Pablo Pereira Corredor</p>
           </div>
         </div>
         <div class="actions">
@@ -145,6 +157,7 @@
 
     <main class="main-content">
       <div class="iframe-card">
+        <div class="iframe-top-cover"></div>
         <div class="iframe-overlay">
           <img src="/logo.png" alt="JP Logo" />
         </div>
@@ -157,6 +170,6 @@
       </div>
     </main>
 
-    <footer class="footer">Diseñado para simulación independiente de vernier. Ajusta con la misma precisión 1/128" y controla desde una página dedicada.</footer>
+    <footer class="footer">Calibrador Vernier independiente desarrollado por Juan Pablo Pereira Corredor. Precisión 1/128" con interfaz dedicada para uso profesional.</footer>
   </body>
 </html>
