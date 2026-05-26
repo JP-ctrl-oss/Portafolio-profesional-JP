@@ -75,57 +75,12 @@
         overflow: hidden;
         border: 1px solid #e2e8f0;
         box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
-        position: relative;
-      }
-      .iframe-top-cover {
-        position: absolute;
-        top: 14px;
-        right: 14px;
-        width: 170px;
-        height: 44px;
-        background: rgba(255,255,255,0.96);
-        border-radius: 9999px;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-        pointer-events: none;
-        z-index: 10;
       }
       .iframe-card iframe {
         width: 100%;
         min-height: 720px;
         border: 0;
         display: block;
-      }
-      /* Overlay to cover external watermark and show user's logo */
-      .iframe-overlay {
-        position: absolute;
-        right: 16px;
-        bottom: 16px;
-        background: rgba(255,255,255,0.95);
-        padding: 6px 10px;
-        border-radius: 8px;
-        box-shadow: 0 6px 18px rgba(2,6,23,0.08);
-        pointer-events: none; /* don't block clicks inside iframe */
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .iframe-overlay img { height: 28px; width: auto; display: block; }
-      /* Overlay to hide Simphy branding and show "Hecho por JP" */
-      .simphy-cover {
-        position: absolute;
-        top: 120px;
-        right: 30px;
-        background: rgba(255,255,255,0.98);
-        padding: 6px 12px;
-        border-radius: 6px;
-        box-shadow: 0 4px 12px rgba(2,6,23,0.1);
-        pointer-events: none;
-        z-index: 11;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #0f172a;
-        text-align: center;
-        white-space: nowrap;
       }
       .page-title {
         margin: 0 0 1rem;
@@ -174,13 +129,8 @@
 
     <main class="main-content">
       <div class="iframe-card">
-        <div class="iframe-top-cover"></div>
-        <div class="simphy-cover">Hecho por JP</div>
-        <div class="iframe-overlay">
-          <img src="/logo.png" alt="JP Logo" />
-        </div>
         <iframe
-          src="https://maheshkurmi.github.io/experiments/vernier_calliper.html"
+          src="https://rawcdn.githack.com/MuzikaAkrush/VernerCalibrator/d45c0d95a1c2e31e09e3ebfb09fcd6c093f81dce/vernier.html"
           title="Vernier Caliper Simulator"
           allowfullscreen
         ></iframe>
