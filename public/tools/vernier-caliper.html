@@ -110,6 +110,23 @@
         gap: 8px;
       }
       .iframe-overlay img { height: 28px; width: auto; display: block; }
+      /* Overlay to hide Simphy branding and show "Hecho por JP" */
+      .simphy-cover {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255,255,255,0.98);
+        padding: 8px 16px;
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(2,6,23,0.1);
+        pointer-events: none;
+        z-index: 11;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #0f172a;
+        text-align: center;
+      }
       .page-title {
         margin: 0 0 1rem;
         font-size: clamp(1.75rem, 3vw, 2.5rem);
@@ -158,6 +175,7 @@
     <main class="main-content">
       <div class="iframe-card">
         <div class="iframe-top-cover"></div>
+        <div class="simphy-cover">Hecho por JP</div>
         <div class="iframe-overlay">
           <img src="/logo.png" alt="JP Logo" />
         </div>
