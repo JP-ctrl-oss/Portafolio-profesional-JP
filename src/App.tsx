@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Wind, Atom, Bot, Cpu, Plane, Check, Linkedin, Mail, ArrowUpRight, X, Menu } from 'lucide-react';
 import { PortfolioUpload } from './components/PortfolioUpload';
-import { PortfolioVernierCalibrator } from './components/PortfolioVernierCalibrator';
+import { VernierSimulator } from './components/VernierSimulator';
 import './App.css';
 
 interface Project {
@@ -17,7 +17,7 @@ function App() {
   const [scrolled, setScrolled] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showVernierCalibrator, setShowVernierCalibrator] = useState(false);
+  const [showVernierSimulator, setShowVernierSimulator] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
   const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
 
@@ -200,7 +200,7 @@ function App() {
                     <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-apple-gray-100 py-2 z-50">
                       <button
                         onClick={() => {
-                          setShowVernierCalibrator(true);
+                          setShowVernierSimulator(true);
                           setToolsDropdownOpen(false);
                         }}
                         className="w-full text-left px-4 py-3 text-sm text-foreground hover:bg-blue-50 flex items-center gap-3 transition-colors"
@@ -261,7 +261,7 @@ function App() {
             <div className="h-px bg-gray-200 my-2"></div>
             <button
               onClick={() => {
-                setShowVernierCalibrator(true);
+                setShowVernierSimulator(true);
                 setMenuOpen(false);
               }}
               className="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors font-medium"
@@ -649,9 +649,9 @@ function App() {
         </div>
       )}
 
-      {/* Vernier Calibrator Modal */}
-      {showVernierCalibrator && (
-        <PortfolioVernierCalibrator onClose={() => setShowVernierCalibrator(false)} />
+      {/* Vernier Simulator Modal */}
+      {showVernierSimulator && (
+        <VernierSimulator onClose={() => setShowVernierSimulator(false)} />
       )}
     </div>
   );
